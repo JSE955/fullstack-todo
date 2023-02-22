@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import {BrowserRouter, Routes, Route, useNavigate, useParams} from 'react-router-dom'
+import {BrowserRouter, Routes, Route, useNavigate, useParams, Link} from 'react-router-dom'
 import './TodoApp.css'
 
 export default function TodoApp() {
@@ -78,7 +78,7 @@ function WelcomeComponent() {
         <div className="Welcome">
             <h1>Welcome {username}</h1>
             <div>
-            Welcome Component
+                Manage Your Todos - <Link to="/todos">Here</Link>
             </div>
         </div>
     )
@@ -96,10 +96,14 @@ function ErrorComponent() {
 }
 
 function ListTodosComponent() {
+    
+    const today = new Date()
+    const targetDate = new Date(today.getFullYear() + 12, today.getMonth(), today.getDay())
+    
     const todos = [
-        {id: 1, description: 'Learn AWS'},
-        {id: 2, description: 'Learn Full Stack Dev'},
-        {id: 3, description: 'Learn DevOps'}
+        {id: 1, description: 'Learn AWS', done: false, targetDate: targetDate},
+        {id: 2, description: 'Learn Full Stack Dev', done: false, targetDate: targetDate},
+        {id: 3, description: 'Learn DevOps', done: false, targetDate: targetDate}
     ]
     
     return (
@@ -109,8 +113,10 @@ function ListTodosComponent() {
                 <table>
                     <thead>
                         <tr>
-                            <td>id</td>
-                            <td>description</td>
+                            <td>ID</td>
+                            <td>Description</td>
+                            <td>Is Done?</td>
+                            <td>Target Date</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -120,6 +126,8 @@ function ListTodosComponent() {
                                 <tr key={todo.id}>
                                     <td>{todo.id}</td>
                                     <td>{todo.description}</td>
+                                    <td>{todo.done.toString()}</td>
+                                    <td>{todo.targetDate.toDateString()}</td>
                                 </tr>
                             )
                         )
