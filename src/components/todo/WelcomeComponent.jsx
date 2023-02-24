@@ -1,6 +1,6 @@
 import {useParams, Link} from 'react-router-dom'
-import axios from 'axios'
 import { useState } from 'react'
+import { retrieveHelloWorldBean } from './api/HelloWorldApiService'
 
 function WelcomeComponent() {
     
@@ -8,17 +8,18 @@ function WelcomeComponent() {
 
     const [message, setMessage ] = useState(null)
 
-    function callHelloWorldRestApi() {
-        console.log('called')
-        axios.get('http://localhost:8080/hello-world')
-            .then((response) => successfulResponse(response))
-            .catch((error) => errorResponse(error))
-            .finally( () => console.log('cleanup'))
-    }
+    // function callHelloWorldRestApi() {
+    //     console.log('called')
+    //     axios.get('http://localhost:8080/hello-world')
+    //         .then((response) => successfulResponse(response))
+    //         .catch((error) => errorResponse(error))
+    //         .finally( () => console.log('cleanup'))
+    // }
 
     function callHelloWorldBeanRestApi() {
         console.log('calledBean')
-        axios.get('http://localhost:8080/hello-world-bean')
+
+        retrieveHelloWorldBean()
              .then((response) => successfulResponse(response))
              .catch((error) => errorResponse(error))
              .finally( () => console.log('cleanup'))
@@ -39,11 +40,11 @@ function WelcomeComponent() {
             <div>
                 Manage Your Todos - <Link to="/todos">Here</Link>
             </div>
-            <div>
+            {/* <div>
                 <button className="btn btn-success m-5" onClick={callHelloWorldRestApi}>
                     Call Hello World</button>
             </div>
-            <div className="text-info">{message}</div>
+            <div className="text-info">{message}</div> */}
             <div>
                 <button className="btn btn-success m-5" onClick={callHelloWorldBeanRestApi}>
                     Call Hello World Bean</button>
